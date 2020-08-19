@@ -3,6 +3,10 @@ FreePort
 
 Get a free open TCP port that is ready to use.
 
+## Hard fork
+
+This is a hard fork of https://github.com/phayes/freeport which is unmaintained. It has https://github.com/phayes/freeport/pull/8 merged and I intend to remove the CLI and have this as a Go package only.
+
 ## Command Line Example:
 ```bash
 # Ask the kernel to give us an open port.
