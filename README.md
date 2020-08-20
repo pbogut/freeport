@@ -1,62 +1,24 @@
-FreePort
-========
+# freeport is a simple Go package for finding free TCP ports
 
-Get a free open TCP port that is ready to use.
+This is a more up-to-date hard fork of https://github.com/phayes/freeport
 
-## Hard fork
+It has https://github.com/phayes/freeport/pull/8 merged, the CLI removed (Go package only), and other minor improvements.
 
-This is a hard fork of https://github.com/phayes/freeport which is unmaintained. It has https://github.com/phayes/freeport/pull/8 merged and I intend to remove the CLI and have this as a Go package only.
+PRs welcome and appreciated.
 
-## Command Line Example:
-```bash
-# Ask the kernel to give us an open port.
-export port=$(freeport)
+## Usage
 
-# Start standalone httpd server for testing
-httpd -X -c "Listen $port" &
-
-# Curl local server on the selected port
-curl localhost:$port
-```
-
-## Golang example:
 ```go
 package main
 
-import "github.com/phayes/freeport"
+import "github.com/slimsag/freeport"
 
 func main() {
 	port, err := freeport.GetFreePort()
 	if err != nil {
 		log.Fatal(err)
 	}
-	// port is ready to listen on
+	// port should be ready to listen on
 }
 
-```
-
-## Installation
-
-#### Mac OSX
-```bash
-brew install phayes/repo/freeport
-```
-
-
-#### CentOS and other RPM based systems
-```bash
-wget https://github.com/phayes/freeport/releases/download/1.0.2/freeport_1.0.2_linux_386.rpm
-rpm -Uvh freeport_1.0.2_linux_386.rpm
-```
-
-#### Ubuntu and other DEB based systems
-```bash
-wget wget https://github.com/phayes/freeport/releases/download/1.0.2/freeport_1.0.2_linux_amd64.deb
-dpkg -i freeport_1.0.2_linux_amd64.deb
-```
-
-#### Building From Source
-```bash
-sudo apt-get install golang                    # Download go. Alternativly build from source: https://golang.org/doc/install/source
-go get github.com/phayes/freeport
 ```
