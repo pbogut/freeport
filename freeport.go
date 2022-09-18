@@ -1,12 +1,20 @@
-package freeport
+package main
 
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"strconv"
+
+	"github.com/jessevdk/go-flags"
 )
+
+var opts struct {
+	Max string `short:"x" long:"max" description:"Max port" default:"65535"`
+	Min string `short:"m" long:"min" description:"Min port" default:"3000"`
+}
 
 type Options struct {
 	Address string
@@ -100,4 +108,24 @@ func GetFreePorts(count int) ([]int, error) {
 		options.Min = port + 1
 	}
 	return ports, nil
+}
+
+func main() {
+	_, err := flags.Parse(&opts)
+	if err != nil {
+		return
+	}
+
+	options, err := MakeOptions(false)
+	if err != nil {
+		log.Fatal(err)
+	}
+	options.Min, _ = strconv.Atoi(opts.Min)
+	options.Max, _ = strconv.Atoi(opts.Max)
+	port, err := GetFreePortEx(options)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(port)
 }

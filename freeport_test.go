@@ -1,4 +1,4 @@
-package freeport
+package main
 
 import (
 	"net"
